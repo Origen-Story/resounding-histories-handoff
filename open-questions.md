@@ -63,6 +63,31 @@ non-blocking pieces of 3 and 4. Listed here for visibility.
 
 ---
 
+## Awaiting Emily's sign-off (highest priority)
+
+### ADR-0011 — slug-based filename pattern
+**Status:** Proposed by Matt 2026-06-10 — awaiting Emily.
+
+Filename pattern proposed: `<stop_id>-hero-NN.jpg` /
+`<stop_id>-appendix-NN.jpg` (slug-based, no numeric stop position embedded
+in the filename). Resolves the gallery-vs-tour numbering ambiguity Emily
+flagged.
+
+See ADR-0011 for full reasoning + open sub-questions:
+
+1. Slug-based filenames vs an alternative (numbered-against-gallery with
+   explicit clarification, or some other scheme)?
+2. Atomic cutover (regenerate her loader's imageRefs in one change) vs
+   transitional `filename-aliases.json` mapping (one bundle of dual naming
+   then drop)?
+3. Any Swift-side constraints on filename length / character set we should
+   know about?
+
+When Emily accepts: ADR-0011 moves to **Accepted**; ADR-0005 status updates
+to **Superseded**; manifest + bundle schemas drop the "Proposed pending" notes.
+
+---
+
 ## Matt's reciprocal questions
 
 ### Stop inventory reconciliation (ADR 0001 follow-up)
@@ -106,11 +131,31 @@ relationship some other way.
 (Move questions here when answered + actioned. Include date and the resolving
 ADR if one exists.)
 
+- **2026-06-10** — Stop-structure migration timing: deferred to post-launch.
+  ADR-0001 amended by ADR-0009. App keeps stop ownership through launch.
+- **2026-06-10** — `arrival_radius_meters` permanently app-owned. Dropped
+  from contract. Per ADR-0009.
+- **2026-06-10** — Coordinate shape at migration: flat `lat`/`lng` (not
+  nested object). Per ADR-0009.
+- **2026-06-10** — Bibliography vocabulary: lowercase
+  `book / article / archive / web`. ADR-0010 supersedes ADR-0007. Archive
+  brought back per Emily's pushback.
+- **2026-06-10** — Bibliography `ref_key` → `id`. Per ADR-0010.
+- **2026-06-10** — Bibliography `year` → string-only. Per ADR-0010.
+- **2026-06-10** — `caption_source` column added to `manifest.csv`.
+  Resolves ADR-0008 vs schema inconsistency Emily flagged.
+- **2026-06-10** — `bundle_version` pattern tightened to `^v\d+$`; dropped
+  "semver" terminology — it's a major-version ladder, not semver.
+- **2026-06-10** — `archives-{locale}.json` companion files added to the
+  bundle, keyed by filename to match Emily's loader. Tracker performs the
+  join at publish.
+- **2026-06-10** — Validator ownership split: tracker drafts the
+  `validate-app-data` skill spec; Emily implements + owns it.
 - **2026-06-04** — Cast classification scope (per-asset, intrinsic) — ADR 0002
 - **2026-06-04** — Translation bundle shape (per-locale files) — ADR 0003
 - **2026-06-04** — Image format/size/color space on publish — ADR 0004
-- **2026-06-04** — Filename pattern — ADR 0005
-- **2026-06-04** — Tracker owns stop structure — ADR 0001
+- **2026-06-04** — Filename pattern — ADR 0005 (now pending supersession by ADR 0011)
+- **2026-06-04** — Tracker owns stop structure — ADR 0001 (now amended by ADR 0009)
 - **2026-06-04** — Character entity stays tracker-side, ships in bundle — ADR 0006
-- **2026-06-04** — Bibliography categories — ADR 0007
+- **2026-06-04** — Bibliography categories — ADR 0007 (now superseded by ADR 0010)
 - **2026-06-04** — Caption model non-destructive — ADR 0008

@@ -13,23 +13,28 @@ Later: direct push to whatever delivery channel the app needs.
 
 ```
 <bundle>.zip
-├─ bundle.json              ← self-describing manifest (schema: bundle.schema.json)
-├─ manifest.csv             ← flat per-image table (schema: manifest.schema.json)
-├─ stops.json               ← tour structure (schema: stops.schema.json)
-├─ bibliography.json        ← bibliography (schema: bibliography.schema.json)
-├─ characters.json          ← characters (schema: characters.schema.json) — app may ignore at v0 launch
+├─ bundle.json                ← self-describing manifest (schema: bundle.schema.json)
+├─ manifest.csv               ← flat per-image table (schema: manifest.schema.json)
+├─ stops.json                 ← tour structure (schema: stops.schema.json)
+│                               (v0: no coordinates — app keeps stop ownership, see ADR 0009)
+├─ bibliography.json          ← bibliography (schema: bibliography.schema.json)
+├─ characters.json            ← characters (schema: characters.schema.json) — app may ignore at v0 launch
 ├─ locales/
-│  ├─ en.json               ← English strings (schema: locale.schema.json)
-│  ├─ ca.json               ← Catalan strings, same keys as en.json
-│  └─ es.json               ← Spanish strings, same keys
+│  ├─ en.json                 ← English scene/tour strings keyed by content ID
+│  ├─ ca.json                 ← Catalan equivalent, same keys
+│  ├─ es.json                 ← Spanish equivalent
+│  ├─ archives-en.json        ← English image-caption strings keyed by FILENAME
+│  ├─ archives-ca.json        ← Catalan equivalent
+│  └─ archives-es.json        ← Spanish equivalent
 └─ images/
-   ├─ stop-NN-hero-NN.jpg
-   ├─ stop-NN-appendix-NN.jpg
-   └─ character-<id>.jpg    ← optional portraits
+   ├─ <stop_id>-hero-NN.jpg   ← slug-based per ADR 0011 (e.g. hospital_santa_creu-hero-01.jpg)
+   ├─ <stop_id>-appendix-NN.jpg
+   └─ character-<id>.jpg      ← optional portraits
 ```
 
-All filenames are lowercase. Stop and hero/appendix indices are two-digit
-zero-padded (`stop-01-hero-01.jpg`, not `stop-1-hero-1.jpg`).
+All filenames are lowercase. Asset ordinals (`NN`) are two-digit
+zero-padded (`hospital_santa_creu-hero-01.jpg`, not `...-hero-1.jpg`). Slug
+pattern is **proposed** in ADR-0011 pending Emily's sign-off.
 
 ## Image normalization rules
 
@@ -65,12 +70,16 @@ validator parity check. Tracker generates all three files together.
 
 ## Stop structure ownership
 
-**Tracker owns it.** The app reads `stops.json` as authoritative for the
-canonical stop list, order, slugs, and coordinates. The app may continue to
-own runtime concerns (arrival-detection algorithm, walking directions, map
-rendering) but the *data* lives with the tracker.
+**Tracker owns the eventual structure; v0 launch defers the actual migration.**
+For v0: app keeps stop ownership, coordinates stay app-side, `stops.json` in
+the bundle carries `stop_id` / `stop_number` / `stop_type` / `default_name` /
+`scene_ids` / `appendix_image_filenames` but NOT coordinates. Coordinate
+migration is a post-launch ADR, when the tracker is producing the full
+fat-Stop payload (`subtitle`, `era`, `teaserText`, `heroImage`, `duration`,
+`chapters`, audio, etc.). `arrival_radius_meters` is permanently app-owned.
 
-See `decisions/0001-tracker-owns-stop-structure.md`.
+See `decisions/0001-tracker-owns-stop-structure.md` (amended) and
+`decisions/0009-defer-stop-structure-migration-post-launch.md`.
 
 Stop types:
 - `listening` — physical stops the user stands at. Have coordinates.
@@ -96,10 +105,12 @@ without a schema bump. See `decisions/0006-character-entity-maintained-tracker-s
 
 ## Bibliography
 
-Categories: **Book**, **Article**, **Web**, **Interview**. See
-`decisions/0007-bibliography-categories.md`. Entries can link to stops and/or
-scenes; the app surfaces a per-stop "Sources" list (display details TBD —
-see open-questions.md).
+Categories (locked, lowercase): **`book`**, **`article`**, **`archive`**,
+**`web`**. See `decisions/0010-bibliography-vocabulary-locked.md`
+(supersedes ADR 0007). Each entry has a stable `id` (e.g. `B1`, `A12`,
+`R3`, `W7`), `title`, `year` (string — supports "c. 1926", ranges), and
+optional `linked_stops` / `linked_scenes` for per-stop or per-scene
+display in the app.
 
 ## Caption model (non-destructive)
 

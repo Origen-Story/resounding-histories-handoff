@@ -5,6 +5,36 @@ Most recent at the top.
 
 ---
 
+## 2026-06-10 — v0 contract revision pass (response to Emily's review)
+
+Responded to Emily's app-side PR #1 (merged). Summary:
+
+**Accepted in full:**
+- ADR-0001 amended via ADR-0009 — defer stop-structure migration to
+  post-launch. App keeps stop ownership through launch; coordinates stay
+  app-side; tour JSON remains authoritative. Tracker still ships the
+  archive/visual bundle.
+- ADR-0007 superseded by ADR-0010 — bibliography vocabulary changed to
+  lowercase `book / article / archive / web` (Archive restored per Emily's
+  ask; ~42% of source material is archival).
+- Bibliography `ref_key` → `id`; `year` → string-only.
+- `arrival_radius_meters` permanently dropped from the contract.
+- `caption_source` column added to manifest (resolves ADR-0008 vs schema
+  inconsistency).
+- `bundle_version` pattern tightened; "semver" terminology dropped.
+- `archives-{locale}.json` companion files added to the bundle layout,
+  matching her loader's filename-keyed shape.
+
+**Pending Emily's sign-off:**
+- ADR-0011 (Proposed) — slug-based filename pattern
+  (`<stop_id>-hero-NN.jpg`) superseding ADR-0005's tour-position-numbered
+  pattern. Awaiting confirmation; tracker-side build doesn't proceed on
+  filenames until accepted.
+
+**Still no tracker code changes.** Plan A holds — Emily's loader needs to
+read a sample v0 bundle and report back before the tracker side starts
+schema migrations.
+
 ## 2026-06-04 — Contracts drafted; schema migrations pending
 
 **What's live in the tracker today:**

@@ -1,6 +1,7 @@
 # ADR 0001 — Tracker owns the tour stop structure
 
-**Status:** Accepted · **Date:** 2026-06-04 · **Decided by:** Matt, Emily
+**Status:** Accepted (direction) — Amended by ADR 0009 (launch timing deferred)
+**Date:** 2026-06-04 · **Decided by:** Matt, Emily
 
 ## Context
 

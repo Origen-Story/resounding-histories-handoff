@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/Origen-Story/resounding-histories-handoff/schema/bibliography.schema.json#v0",
   "title": "Bibliography (v0)",
-  "description": "Project-wide list of source references. Shipped as bibliography.json at the bundle root. Translated titles (when applicable) appear in locale files keyed by 'bibliography.<ref_key>.title'.",
+  "description": "Project-wide list of source references. Shipped as bibliography.json at the bundle root. Translated titles (when applicable) appear in locale files keyed by 'bibliography.<id>.title'. Vocabulary locked by ADR 0010.",
   "type": "object",
   "properties": {
     "entries": {
@@ -16,14 +16,14 @@
     "Entry": {
       "type": "object",
       "properties": {
-        "ref_key": {
+        "id": {
           "type": "string",
           "pattern": "^[A-Z][A-Z0-9_-]*\\d+$",
-          "description": "Short stable citation key, author-chosen. Example: 'B1', 'A12', 'W3'. First letter conventionally aligns with category (B=Book, A=Article, W=Web, I=Interview) but not enforced."
+          "description": "Short stable identifier, author-chosen. Example: 'B1', 'A12', 'W3', 'I7'. First letter conventionally aligns with category (B=book, A=article, W=web, I=interview) but not enforced. Renamed from 'ref_key' per ADR 0010 to match Swift Source.id."
         },
         "title": {
           "type": "string",
-          "description": "Original-language title. Translations live in locale files under 'bibliography.<ref_key>.title'."
+          "description": "Original-language title. Translations live in locale files under 'bibliography.<id>.title'."
         },
         "author": {
           "type": "string",
@@ -34,8 +34,8 @@
           "description": "Publisher and place when applicable (e.g. 'Harper Perennial (London)')."
         },
         "year": {
-          "type": ["integer", "string"],
-          "description": "Publication year. String is permitted for ranges or approximations ('1880-90', 'c.1900')."
+          "type": "string",
+          "description": "Publication year as a string. Producers SHOULD emit a plain four-digit year when known ('1926'); MAY use ranges ('1878-1883'), approximations ('c.1900'), or empty string when unknown. String-only per ADR 0010."
         },
         "link": {
           "type": "string",
@@ -44,7 +44,8 @@
         },
         "category": {
           "type": "string",
-          "enum": ["Book", "Article", "Web", "Interview"]
+          "enum": ["book", "article", "archive", "web"],
+          "description": "Source type. Lowercase, locked vocabulary per ADR 0010. 'archive' covers archival scans/holdings (Wikimedia, museum archives, etc.) — meaningful for archival-heavy projects."
         },
         "notes": {
           "type": "string"
@@ -60,7 +61,7 @@
           "description": "Scene IDs this source informs (when more specific than stop-level)."
         }
       },
-      "required": ["ref_key", "title", "category"]
+      "required": ["id", "title", "category"]
     }
   }
 }

@@ -19,6 +19,7 @@
         "title_en",
         "short_caption_en",
         "long_description_en",
+        "caption_source",
         "credit_line",
         "source_provenance",
         "author_creator",
@@ -36,7 +37,7 @@
   },
 
   "x-column-spec": {
-    "filename":           "e.g. stop-01-hero-01.jpg — matches /images/<filename> in the bundle.",
+    "filename":           "e.g. hospital_santa_creu-hero-01.jpg per ADR 0011 — matches /images/<filename> in the bundle.",
     "stop_id":            "Stop slug (e.g. 'hospital_santa_creu').",
     "stop_number":        "Tour position, 1-based integer.",
     "asset_role":         "'hero' or 'appendix'.",
@@ -45,6 +46,7 @@
     "title_en":           "English title from the publish; CA/ES variants in locales/.",
     "short_caption_en":   "English short caption.",
     "long_description_en":"English long description (optional, may be empty).",
+    "caption_source":     "Raw ingested caption from the source archive (Wikimedia, museum, etc.) per ADR 0008. Preserved as provenance for both human review and round-trip traceability. The app does NOT render this — it's a manifest-only column for the validator and for Emily's debugging. May be empty.",
     "credit_line":        "Single-line attribution string the app displays verbatim.",
     "source_provenance":  "Origin archive / site / collection (e.g. 'Wikimedia Commons').",
     "author_creator":     "Person or institution credited as author.",

@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/Origen-Story/resounding-histories-handoff/schema/locale.schema.json#v0",
   "title": "Locale strings (v0)",
-  "description": "Per-locale string file (en.json / ca.json / es.json). Flat key-value map. Every locale file MUST have an identical key set; the inbound validator enforces parity. Tracker generates all three; missing translations show up as either empty strings or missing keys depending on policy (see decisions/0003).",
+  "description": "Per-locale string file (en.json / ca.json / es.json) — the SCENE/TOUR content locale files at locales/{en,ca,es}.json. Flat key-value map keyed by content ID. Every locale file MUST have an identical key set; the inbound validator enforces parity. Tracker generates all three; missing translations show up as either empty strings or missing keys depending on policy (see ADR 0003). For the SEPARATE archives-{locale}.json files (which her loader uses, keyed by filename), see the x-archive-locale-companion section at the bottom of this schema.",
   "type": "object",
   "patternProperties": {
     "^(stop|scene|appendix|character|bibliography)\\.[a-z0-9_]+(\\.[a-z0-9_]+)*$": {
@@ -33,6 +33,22 @@
     "appendix_id":  "Stable integer from tracker's stop_appendix_assets.id.",
     "character_id": "Stable integer from tracker's characters.id.",
     "stop_id":      "Lowercase slug, the tracker's search_groups.groupId (e.g. 'hospital_santa_creu').",
-    "ref_key":      "Bibliography ref key (e.g. 'B1', 'A12') — short, stable, author-chosen."
+    "id (bibliography)": "Bibliography id (e.g. 'B1', 'A12') — short, stable, author-chosen. Per ADR 0010 the field is named 'id', not 'ref_key'."
+  },
+
+  "x-archive-locale-companion": {
+    "comment": "The bundle ALSO emits archives-{locale}.json files alongside the main locale files (locales/archives-{en,ca,es}.json) to match Emily's existing iOS loader, which keys archive captions by FILENAME rather than by scene/appendix id. The tracker performs the join (filename → asset → captions) at publish time. Same parity rules apply: identical key set across all three archive-locale files.",
+    "shape": {
+      "comment": "Same flat key-value shape as the main locale files, but keys are image filenames.",
+      "<filename>.title":            "Short title for this image (~25 chars).",
+      "<filename>.short_caption":    "Short caption (~50 chars).",
+      "<filename>.long_description": "Long description for full-screen view."
+    },
+    "example": {
+      "hospital_santa_creu-hero-01.jpg.title": "Hospital entrance",
+      "hospital_santa_creu-hero-01.jpg.short_caption": "Where Gaudí spent his final hours",
+      "hospital_santa_creu-hero-01.jpg.long_description": "..."
+    },
+    "note": "The main locale files (en.json etc.) continue to carry scene-content keys (scene.<id>.beat, stop.<id>.name, character.<id>.bio, bibliography.<id>.title). Archive image captions live in archives-{locale}.json. This split matches Emily's loader pattern without requiring her to refactor."
   }
 }

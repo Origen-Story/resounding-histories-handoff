@@ -7,8 +7,8 @@
   "properties": {
     "bundle_version": {
       "type": "string",
-      "pattern": "^v\\d+(\\.\\d+)*$",
-      "description": "The schema version this bundle conforms to. Example: 'v0', 'v1.2'."
+      "pattern": "^v\\d+$",
+      "description": "The major schema version this bundle conforms to. Monotonic integer ladder ('v0', 'v1', 'v2'). NOT semver — minor/patch numbers aren't part of the contract. Breaking schema changes bump this; non-breaking refinements within a major are tracked by schema/CHANGELOG.md. Each side's validator pins on this value."
     },
     "tour_id": {
       "type": "string",
@@ -46,14 +46,17 @@
       "bibliography.json": "Array of bibliography entries. Matches bibliography.schema.json.",
       "characters.json":   "Array of characters. Matches characters.schema.json. App may ignore for v0 launch.",
       "locales/": {
-        "en.json": "English strings, keyed by content ID. Matches locale.schema.json.",
-        "ca.json": "Catalan strings. Same keys as en.json.",
-        "es.json": "Spanish strings. Same keys as en.json."
+        "en.json":          "English scene/tour strings, keyed by content ID (scene.<id>.beat, stop.<id>.name, character.<id>.bio, bibliography.<id>.title). Matches locale.schema.json.",
+        "ca.json":          "Catalan equivalent. Same keys as en.json.",
+        "es.json":          "Spanish equivalent. Same keys.",
+        "archives-en.json": "English image-caption strings, keyed by FILENAME (matches Emily's loader). title / short_caption / long_description per file.",
+        "archives-ca.json": "Catalan equivalent. Same keys as archives-en.json.",
+        "archives-es.json": "Spanish equivalent. Same keys."
       },
       "images/": {
-        "stop-NN-hero-NN.jpg":     "Hero images, two-digit zero-padded.",
-        "stop-NN-appendix-NN.jpg": "Appendix images, two-digit zero-padded.",
-        "character-<id>.jpg":      "Character portraits, optional; deferred for v0 app launch."
+        "<stop_id>-hero-NN.jpg":     "Hero images, slug-based per ADR 0011 (Proposed, pending Emily). Example: 'hospital_santa_creu-hero-01.jpg'.",
+        "<stop_id>-appendix-NN.jpg": "Appendix images, same convention.",
+        "character-<id>.jpg":        "Character portraits, optional; deferred for v0 app launch."
       }
     }
   }

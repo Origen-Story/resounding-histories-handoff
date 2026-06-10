@@ -1,6 +1,7 @@
 # ADR 0007 — Bibliography categories
 
-**Status:** Accepted · **Date:** 2026-06-04 · **Decided by:** Matt
+**Status:** Superseded by ADR 0010 (lowercase vocabulary with `archive` added)
+**Date:** 2026-06-04 · **Decided by:** Matt
 
 ## Decision
 
