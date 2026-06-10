@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Origen-Story/resounding-histories-handoff/schema/characters.schema.json#v0",
+  "title": "Characters (v0)",
+  "description": "Tour characters. Shipped as characters.json at the bundle root. The app's v0 launch does NOT consume character data (per ADR 0006); the Cast filter is flat over Cast-classified images. We publish characters anyway so the app can pick them up post-launch without a schema bump. Tracker maintains them as the source of truth for who-appears-where, sync'd from the FDX.",
+  "type": "object",
+  "properties": {
+    "characters": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/Character" }
+    }
+  },
+  "required": ["characters"],
+
+  "$defs": {
+    "Character": {
+      "type": "object",
+      "properties": {
+        "character_id": {
+          "type": "integer",
+          "description": "Stable from tracker's characters.id. Used as the suffix for locale keys 'character.<id>.bio'."
+        },
+        "name": {
+          "type": "string",
+          "description": "Canonical ALL-CAPS name with diacritics (e.g. 'ANTONI GAUDÍ', 'FATHER PARÉS'). Matches the FDX character cue."
+        },
+        "portrait_filename": {
+          "type": ["string", "null"],
+          "description": "Filename in /images/ (e.g. 'character-12.jpg') for this character's portrait. Null if none assigned."
+        },
+        "birth_year": { "type": ["integer", "null"] },
+        "death_year": { "type": ["integer", "null"] },
+        "scene_ids": {
+          "type": "array",
+          "items": { "type": "integer" },
+          "description": "Scene IDs where this character appears, derived from FDX cues."
+        }
+      },
+      "required": ["character_id", "name", "scene_ids"]
+    }
+  }
+}

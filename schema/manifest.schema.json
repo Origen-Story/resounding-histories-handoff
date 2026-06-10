@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Origen-Story/resounding-histories-handoff/schema/manifest.schema.json#v0",
+  "title": "Image manifest (manifest.csv) — column spec (v0)",
+  "description": "manifest.csv is a flat row-per-image table at the bundle root. Used as a publish/validation artifact, not consumed by the app's main loader. Column order MUST match this spec. Encoding is UTF-8, no BOM, comma-delimited, RFC-4180 quoting.",
+  "type": "object",
+  "properties": {
+    "columns": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Column names in order.",
+      "default": [
+        "filename",
+        "stop_id",
+        "stop_number",
+        "asset_role",
+        "order_in_stop",
+        "classification",
+        "title_en",
+        "short_caption_en",
+        "long_description_en",
+        "credit_line",
+        "source_provenance",
+        "author_creator",
+        "license",
+        "license_url",
+        "original_date",
+        "width_px",
+        "height_px",
+        "file_size_bytes",
+        "color_space",
+        "source_format",
+        "source_asset_id"
+      ]
+    }
+  },
+
+  "x-column-spec": {
+    "filename":           "e.g. stop-01-hero-01.jpg — matches /images/<filename> in the bundle.",
+    "stop_id":            "Stop slug (e.g. 'hospital_santa_creu').",
+    "stop_number":        "Tour position, 1-based integer.",
+    "asset_role":         "'hero' or 'appendix'.",
+    "order_in_stop":      "1-based integer within (stop_id, asset_role).",
+    "classification":     "'cast' or 'image' (Emily's filter dimension; per-asset, intrinsic).",
+    "title_en":           "English title from the publish; CA/ES variants in locales/.",
+    "short_caption_en":   "English short caption.",
+    "long_description_en":"English long description (optional, may be empty).",
+    "credit_line":        "Single-line attribution string the app displays verbatim.",
+    "source_provenance":  "Origin archive / site / collection (e.g. 'Wikimedia Commons').",
+    "author_creator":     "Person or institution credited as author.",
+    "license":            "License name (e.g. 'CC BY 4.0', 'Public Domain').",
+    "license_url":        "URL of the license text.",
+    "original_date":      "Year or date string as published by the source (e.g. '1926', 'c.1880').",
+    "width_px":           "Output (post-normalize) width in pixels.",
+    "height_px":          "Output height in pixels.",
+    "file_size_bytes":    "Output file size.",
+    "color_space":        "Always 'sRGB' on output (validator enforces).",
+    "source_format":      "Original format before normalize (jpg|jpeg|png|gif). For traceability.",
+    "source_asset_id":    "Tracker's archival_assets.id, for round-trip provenance."
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Origen-Story/resounding-histories-handoff/schema/locale.schema.json#v0",
+  "title": "Locale strings (v0)",
+  "description": "Per-locale string file (en.json / ca.json / es.json). Flat key-value map. Every locale file MUST have an identical key set; the inbound validator enforces parity. Tracker generates all three; missing translations show up as either empty strings or missing keys depending on policy (see decisions/0003).",
+  "type": "object",
+  "patternProperties": {
+    "^(stop|scene|appendix|character|bibliography)\\.[a-z0-9_]+(\\.[a-z0-9_]+)*$": {
+      "type": "string",
+      "description": "All values are strings. Empty string is permitted and signals 'no translation available'."
+    }
+  },
+  "additionalProperties": false,
+
+  "x-key-namespaces": {
+    "comment": "Documented separately from JSON Schema validation. Each key uses dot-delimited segments. Producers and consumers should both rely on these prefixes.",
+    "scene.<scene_id>.title":              "Scene heading (e.g. 'EXT. FRONT ENTRANCE OF HOSPITAL - NIGHT').",
+    "scene.<scene_id>.beat":               "Beat description — what's happening in the scene.",
+    "scene.<scene_id>.hero.title":         "Short title for the hero image (~25 chars).",
+    "scene.<scene_id>.hero.short_caption": "Short caption beneath the hero (~50 chars).",
+    "scene.<scene_id>.hero.long_description": "Full-screen description (1–3 sentences).",
+    "appendix.<appendix_id>.title":        "Short title for an appendix image (~25 chars).",
+    "appendix.<appendix_id>.short_caption":"Short caption beneath an appendix image.",
+    "appendix.<appendix_id>.long_description": "Full-screen description.",
+    "character.<character_id>.bio":        "One-to-two-sentence character bio. Deferred from app v0 launch.",
+    "stop.<stop_id>.name":                 "Display name of the stop (e.g. 'Hospital de la Santa Creu').",
+    "bibliography.<ref_key>.title":        "Translated title of a bibliography entry (when applicable)."
+  },
+
+  "x-id-conventions": {
+    "comment": "How the IDs in keys are constructed. Producers MUST be stable across publishes.",
+    "scene_id":     "Stable integer from the tracker's scenes.id, prefixed nowhere — used raw.",
+    "appendix_id":  "Stable integer from tracker's stop_appendix_assets.id.",
+    "character_id": "Stable integer from tracker's characters.id.",
+    "stop_id":      "Lowercase slug, the tracker's search_groups.groupId (e.g. 'hospital_santa_creu').",
+    "ref_key":      "Bibliography ref key (e.g. 'B1', 'A12') — short, stable, author-chosen."
+  }
+}

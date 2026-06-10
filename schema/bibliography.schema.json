@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Origen-Story/resounding-histories-handoff/schema/bibliography.schema.json#v0",
+  "title": "Bibliography (v0)",
+  "description": "Project-wide list of source references. Shipped as bibliography.json at the bundle root. Translated titles (when applicable) appear in locale files keyed by 'bibliography.<ref_key>.title'.",
+  "type": "object",
+  "properties": {
+    "entries": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/Entry" }
+    }
+  },
+  "required": ["entries"],
+
+  "$defs": {
+    "Entry": {
+      "type": "object",
+      "properties": {
+        "ref_key": {
+          "type": "string",
+          "pattern": "^[A-Z][A-Z0-9_-]*\\d+$",
+          "description": "Short stable citation key, author-chosen. Example: 'B1', 'A12', 'W3'. First letter conventionally aligns with category (B=Book, A=Article, W=Web, I=Interview) but not enforced."
+        },
+        "title": {
+          "type": "string",
+          "description": "Original-language title. Translations live in locale files under 'bibliography.<ref_key>.title'."
+        },
+        "author": {
+          "type": "string",
+          "description": "Author(s), last-name-first preferred (e.g. 'van Hensbergen, Gijs')."
+        },
+        "publisher": {
+          "type": "string",
+          "description": "Publisher and place when applicable (e.g. 'Harper Perennial (London)')."
+        },
+        "year": {
+          "type": ["integer", "string"],
+          "description": "Publication year. String is permitted for ranges or approximations ('1880-90', 'c.1900')."
+        },
+        "link": {
+          "type": "string",
+          "format": "uri",
+          "description": "Stable URL when one exists."
+        },
+        "category": {
+          "type": "string",
+          "enum": ["Book", "Article", "Web", "Interview"]
+        },
+        "notes": {
+          "type": "string"
+        },
+        "linked_stops": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Stop slugs this source informs. Drives 'Sources' display per stop in the app."
+        },
+        "linked_scenes": {
+          "type": "array",
+          "items": { "type": "integer" },
+          "description": "Scene IDs this source informs (when more specific than stop-level)."
+        }
+      },
+      "required": ["ref_key", "title", "category"]
+    }
+  }
+}

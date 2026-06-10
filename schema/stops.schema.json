@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Origen-Story/resounding-histories-handoff/schema/stops.schema.json#v0",
+  "title": "Stops (v0)",
+  "description": "Tour stop structure. Shipped as stops.json at the bundle root. Tracker is the source of truth for which stops exist, their order, slugs, and (per ADR 0001) their coordinates. App consumes for tour rendering and arrival detection. Stop names are translated in locale files under 'stop.<stop_id>.name'.",
+  "type": "object",
+  "properties": {
+    "stops": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/Stop" }
+    }
+  },
+  "required": ["stops"],
+
+  "$defs": {
+    "Stop": {
+      "type": "object",
+      "properties": {
+        "stop_id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9_-]*$",
+          "description": "Stable lowercase slug. Example: 'hospital_santa_creu'."
+        },
+        "stop_number": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "1-based tour position. May skip values if a stop is removed."
+        },
+        "stop_type": {
+          "type": "string",
+          "enum": ["listening", "walking", "meta"],
+          "description": "'listening' = a physical stop the user stands at; 'walking' = transition narration between two listening stops; 'meta' = utility bucket (e.g. 'general') not rendered as a tour stop. App typically only renders 'listening' types as map pins."
+        },
+        "default_name": {
+          "type": "string",
+          "description": "Fallback display name when no translation is available. Usually English."
+        },
+        "coordinates": {
+          "type": ["object", "null"],
+          "properties": {
+            "lat":                  { "type": "number", "minimum": -90,  "maximum": 90 },
+            "lng":                  { "type": "number", "minimum": -180, "maximum": 180 },
+            "arrival_radius_meters":{ "type": "number", "minimum": 0, "description": "Radius for 'you've arrived' detection. Defaults to ~30 if app needs a default." }
+          },
+          "required": ["lat", "lng"],
+          "description": "Required for 'listening' stops. May be null for 'walking' or 'meta' types."
+        },
+        "scene_ids": {
+          "type": "array",
+          "items": { "type": "integer" },
+          "description": "Scene IDs belonging to this stop, in narrative order. The app uses this to render the stop detail view."
+        },
+        "appendix_image_filenames": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Filenames (in /images/) for this stop's appendix photos, in display order."
+        }
+      },
+      "required": ["stop_id", "stop_number", "stop_type", "default_name", "scene_ids"]
+    }
+  }
+}

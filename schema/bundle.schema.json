@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Origen-Story/resounding-histories-handoff/schema/bundle.schema.json#v0",
+  "title": "Publish Bundle (v0)",
+  "description": "The folder/file structure shipped from the tracker to the app. A bundle is delivered as a ZIP whose root contains these files and folders. The app extracts and consumes.",
+  "type": "object",
+  "properties": {
+    "bundle_version": {
+      "type": "string",
+      "pattern": "^v\\d+(\\.\\d+)*$",
+      "description": "The schema version this bundle conforms to. Example: 'v0', 'v1.2'."
+    },
+    "tour_id": {
+      "type": "string",
+      "description": "Stable identifier for the tour. Example: 'year-of-gaudi'."
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO-8601 timestamp of when the bundle was generated."
+    },
+    "tracker_commit": {
+      "type": "string",
+      "description": "Short git SHA of the tracker repo at publish time, for traceability."
+    },
+    "file_counts": {
+      "type": "object",
+      "properties": {
+        "stops":        { "type": "integer", "minimum": 0 },
+        "scenes":       { "type": "integer", "minimum": 0 },
+        "characters":   { "type": "integer", "minimum": 0 },
+        "bibliography": { "type": "integer", "minimum": 0 },
+        "images":       { "type": "integer", "minimum": 0 }
+      },
+      "required": ["stops", "scenes", "images"]
+    }
+  },
+  "required": ["bundle_version", "tour_id", "generated_at", "file_counts"],
+
+  "x-directory-layout": {
+    "comment": "Not validated by JSON Schema directly; this is the agreed-on file layout. The validator on each side checks paths exist + each JSON conforms to its referenced schema.",
+    "root": {
+      "bundle.json":       "Self-describing manifest at the bundle root (matches this schema).",
+      "manifest.csv":      "Flat per-image table. Matches manifest.schema.json.",
+      "stops.json":        "Array of stops. Matches stops.schema.json.",
+      "bibliography.json": "Array of bibliography entries. Matches bibliography.schema.json.",
+      "characters.json":   "Array of characters. Matches characters.schema.json. App may ignore for v0 launch.",
+      "locales/": {
+        "en.json": "English strings, keyed by content ID. Matches locale.schema.json.",
+        "ca.json": "Catalan strings. Same keys as en.json.",
+        "es.json": "Spanish strings. Same keys as en.json."
+      },
+      "images/": {
+        "stop-NN-hero-NN.jpg":     "Hero images, two-digit zero-padded.",
+        "stop-NN-appendix-NN.jpg": "Appendix images, two-digit zero-padded.",
+        "character-<id>.jpg":      "Character portraits, optional; deferred for v0 app launch."
+      }
+    }
+  }
+}
