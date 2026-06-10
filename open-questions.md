@@ -66,12 +66,21 @@ non-blocking pieces of 3 and 4. Listed here for visibility.
 ## Matt's reciprocal questions
 
 ### Stop inventory reconciliation (ADR 0001 follow-up)
-**Status:** Pending Matt — needs to send Emily the categorized list.
+**Status:** Inventory published — Emily to reconcile against her 12.
 
-Matt to publish: the tracker's 22 search groups broken out as `listening` /
-`walking` / `meta`, so Emily can confirm which 22 → 12 mapping she had.
-Likely outcome: many "walking" types in the tracker correspond to no app-side
-stop, since they're transition narration; the `general` bucket is `meta`.
+See `inventory/stops-2026-06-04.md`. Summary: **18 listening stops + 4 walking
+segments = 22 tour stops**, plus 1 internal-only cross-stop bucket
+(`general`) held back from the bundle. The 22 ≠ 12 difference is not the
+walking segments — it's that Emily's tour data was built against an older
+script revision. Latest tracker structure is now authoritative.
+
+Emily to:
+- Cross-check the 18 listening stops against her 12 — note any from her side
+  that don't appear in our 18 (we may have renamed) and any of our 18 that
+  weren't in her 12 (these are additions she'll need to bring in).
+- Confirm walking-segment triggering preference (on departure / arrival /
+  time-based / manual).
+- Share the coordinates she has for her 12 so we don't re-source them.
 
 ### Coordinates for existing listening stops
 **Status:** Pending Emily — needs to share what she has.

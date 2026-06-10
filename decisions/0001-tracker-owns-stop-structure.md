@@ -31,14 +31,18 @@ existing tour JSON becomes a derived artifact rebuilt from each publish.
 ## Consequences
 
 - Tracker schema gains `latitude`, `longitude`, `arrival_radius_meters`, and
-  `stop_type` (`listening` | `walking` | `meta`) on `search_groups`.
+  `stop_type` on `search_groups`. Tracker-side `stop_type` includes a third
+  value `meta` for internal-only utility buckets (e.g. the `general`
+  cross-stop bucket) — those are not part of the bundle and never reach the
+  app. The **bundle's** `stop_type` enum is restricted to `listening` |
+  `walking` (see `schema/stops.schema.json`).
 - Tracker UI adds a coordinate editor on the Stop edit page.
-- Matt produces a reconciled list of which of the 22 are real `listening` stops
-  vs `walking` transitions vs `meta` so Emily can sanity-check against her 12.
+- Matt produces a reconciled list of which of the tracker's groups are real
+  `listening` stops vs `walking` transitions; see `inventory/stops-2026-06-04.md`.
 - Emily's previous app-side stop data is retired once the first bundle is
   consumed cleanly.
 - One-time data migration: Matt fills in coordinates for the existing stops
-  (Emily can share the lat/lng she has so we don't re-source them).
+  (Emily to share the lat/lng she has so we don't re-source them).
 
 ## Alternatives considered
 

@@ -28,8 +28,8 @@
         },
         "stop_type": {
           "type": "string",
-          "enum": ["listening", "walking", "meta"],
-          "description": "'listening' = a physical stop the user stands at; 'walking' = transition narration between two listening stops; 'meta' = utility bucket (e.g. 'general') not rendered as a tour stop. App typically only renders 'listening' types as map pins."
+          "enum": ["listening", "walking"],
+          "description": "'listening' = a physical stop the user stands at (gets coordinates, arrival detection, a map pin); 'walking' = transition narration that plays between two listening stops (no GPS pin, triggered by app on departure/arrival/etc.). Internal-only buckets like 'general' (cross-stop image holding pen) exist in the tracker but never ship in the bundle."
         },
         "default_name": {
           "type": "string",
