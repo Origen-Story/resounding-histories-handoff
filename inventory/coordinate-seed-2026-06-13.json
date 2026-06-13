@@ -1,0 +1,35 @@
+{
+  "seed": "App-authored coordinate seed (Pass 1)",
+  "authored_by": "Emily (app side)",
+  "date": "2026-06-13",
+  "crs": "WGS84 decimal degrees",
+  "precision": "6 decimal places",
+  "keyed_by": "slug",
+  "notes": [
+    "Pass 1 seed: these are building centroids, to be refined to standing points on the route walk.",
+    "Coordinates are app-side and app-authored; shared here as reference to seed the tracker's stop records (see status/app-status.md).",
+    "Keyed by slug. Refer to stops by slug, never by tour or gallery number.",
+    "taller-call is approximate: resolved to the street (Carrer del Call), not no. 11.",
+    "botiga-guants and cafe-torino are vanished sites with no coordinate yet, pending a historical address (lat/lng null).",
+    "sagrada-familia-passion and sagrada-familia-nativity currently share the basilica centroid; separate facade points to follow."
+  ],
+  "stops": [
+    { "slug": "hospital-santa-creu",       "lat": 41.380795, "lng": 2.170077, "status": "seed-centroid" },
+    { "slug": "santa-maria-del-pi",         "lat": 41.382241, "lng": 2.173919, "status": "seed-centroid" },
+    { "slug": "sant-felip-neri",            "lat": 41.383452, "lng": 2.175054, "status": "seed-centroid" },
+    { "slug": "catedral-barcelona",         "lat": 41.383962, "lng": 2.176199, "status": "seed-centroid" },
+    { "slug": "placa-sant-jaume",           "lat": 41.382798, "lng": 2.177246, "status": "seed-centroid" },
+    { "slug": "taller-call",                "lat": 41.382229, "lng": 2.176126, "status": "approximate-street-not-no-11" },
+    { "slug": "botiga-guants",              "lat": null,      "lng": null,     "status": "unresolved-vanished-site" },
+    { "slug": "placa-reial",                "lat": 41.380082, "lng": 2.175351, "status": "seed-centroid" },
+    { "slug": "palau-guell",                "lat": 41.378885, "lng": 2.174240, "status": "seed-centroid" },
+    { "slug": "casa-calvet",                "lat": 41.390911, "lng": 2.172964, "status": "seed-centroid" },
+    { "slug": "cafe-torino",                "lat": null,      "lng": null,     "status": "unresolved-vanished-site" },
+    { "slug": "casa-batllo",                "lat": 41.391700, "lng": 2.164918, "status": "seed-centroid" },
+    { "slug": "casa-mila",                  "lat": 41.395216, "lng": 2.161902, "status": "seed-centroid" },
+    { "slug": "casa-les-punxes",            "lat": 41.398003, "lng": 2.163992, "status": "seed-centroid" },
+    { "slug": "monument-verdaguer",         "lat": 41.399140, "lng": 2.169944, "status": "seed-centroid" },
+    { "slug": "sagrada-familia-passion",    "lat": 41.403630, "lng": 2.174356, "status": "shared-centroid-needs-facade-point" },
+    { "slug": "sagrada-familia-nativity",   "lat": 41.403630, "lng": 2.174356, "status": "shared-centroid-needs-facade-point" }
+  ]
+}
