@@ -5,29 +5,34 @@ Most recent at the top.
 
 ---
 
-## 2026-06-14 — Bibliography as unified source registry (tracker-internal)
+## 2026-06-14 — Bibliography as unified source registry (tracker-internal, complete)
 
-Built the bibliography table + UI. Refactored `scene_sources` to be a thin
-M:N link table; all citation data now lives in bibliography. Single
-**+ Source** button on the scene editor opens a picker that supports both
-"pick existing" and "create new inline."
+Built the bibliography table + UI, refactored `scene_sources` to be a thin
+M:N link table, ran the data migration, and dropped the legacy polymorphic
+columns. The refactor is complete; tracker is now wholly bibliography-backed
+on the source side.
 
 What landed:
 - New `bibliography` table (schema migration `0008_clumsy_wild_child.sql`)
-- New `scene_sources.bibliography_id` link column (legacy polymorphic
-  columns still in place, nullable, dropped in a follow-up)
+- `scene_sources.bibliography_id` link column added; data migration
+  (`npm run bibliography:migrate`) converted existing rows
+- Follow-up schema migration `0009_real_grey_gargoyle.sql` dropped the
+  legacy polymorphic columns (`sourceType`, `archivalId`, `producedId`,
+  `aiAssetId`, `externalUrl`, `externalTitle`, `citation`) and tightened
+  `bibliographyId` to `NOT NULL`. lib + UI cleaned up to remove the
+  transition-window branches.
 - `lib/bibliography.js`, `routes/bibliography.js`
 - `/bibliography` list + edit pages with internal-asset linking
 - SceneEdit refactored — single + Source button, BibliographyPickerModal
   with inline create
-- Data migration script `npm run bibliography:migrate` (idempotent, dry-run
-  available). Dry-run on project 1 shows 2 unmigrated rows to convert.
 
-Decision documented in **ADR 0012**. No impact on the v0 publish contract —
-the app sees the same `bibliography.json` shape; this just changes how the
-tracker stores it internally.
+Decision documented in **ADR 0012**. **No impact on the v0 publish
+contract** — the app sees the same `bibliography.json` shape; this only
+changed how the tracker stores sources internally.
 
-Still no contract-affecting work; Plan A holds.
+Still Plan A — no contract-affecting work yet. Pending Emily's sign-off on
+ADR 0011 (slug-based filenames) before the schema migrations for the
+publish bundle start.
 
 ## 2026-06-10 — v0 contract revision pass (response to Emily's review)
 
