@@ -5,6 +5,30 @@ Most recent at the top.
 
 ---
 
+## 2026-06-14 — Bibliography as unified source registry (tracker-internal)
+
+Built the bibliography table + UI. Refactored `scene_sources` to be a thin
+M:N link table; all citation data now lives in bibliography. Single
+**+ Source** button on the scene editor opens a picker that supports both
+"pick existing" and "create new inline."
+
+What landed:
+- New `bibliography` table (schema migration `0008_clumsy_wild_child.sql`)
+- New `scene_sources.bibliography_id` link column (legacy polymorphic
+  columns still in place, nullable, dropped in a follow-up)
+- `lib/bibliography.js`, `routes/bibliography.js`
+- `/bibliography` list + edit pages with internal-asset linking
+- SceneEdit refactored — single + Source button, BibliographyPickerModal
+  with inline create
+- Data migration script `npm run bibliography:migrate` (idempotent, dry-run
+  available). Dry-run on project 1 shows 2 unmigrated rows to convert.
+
+Decision documented in **ADR 0012**. No impact on the v0 publish contract —
+the app sees the same `bibliography.json` shape; this just changes how the
+tracker stores it internally.
+
+Still no contract-affecting work; Plan A holds.
+
 ## 2026-06-10 — v0 contract revision pass (response to Emily's review)
 
 Responded to Emily's app-side PR #1 (merged). Summary:
