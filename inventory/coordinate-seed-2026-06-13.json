@@ -29,9 +29,9 @@
     { "slug": "casa-calvet",                "lat": 41.390911, "lng": 2.172964, "status": "seed-centroid" },
     { "slug": "cafe-torino",                "lat": 41.3899,   "lng": 2.1684,   "status": "site-standing-point" },
     { "slug": "casa-batllo",                "lat": 41.391700, "lng": 2.164918, "status": "seed-centroid" },
-    { "slug": "casa-mila",                  "lat": 41.395216, "lng": 2.161902, "status": "seed-centroid" },
+    { "slug": "la-pedrera",                 "lat": 41.395216, "lng": 2.161902, "status": "seed-centroid" },
     { "slug": "casa-les-punxes",            "lat": 41.398003, "lng": 2.163992, "status": "seed-centroid" },
-    { "slug": "monument-verdaguer",         "lat": 41.399140, "lng": 2.169944, "status": "seed-centroid" },
+    { "slug": "verdaguer-monument",         "lat": 41.399140, "lng": 2.169944, "status": "seed-centroid" },
     { "slug": "sagrada-familia-passion",    "lat": 41.403630, "lng": 2.174356, "status": "shared-centroid-needs-facade-point" },
     { "slug": "sagrada-familia-nativity",   "lat": 41.403630, "lng": 2.174356, "status": "shared-centroid-needs-facade-point" }
   ]
