@@ -1,7 +1,7 @@
 # ADR 0011 — Filename pattern: slug-based, stable forever
 
-**Status:** Proposed (awaiting Emily's sign-off) · **Date:** 2026-06-10 · **Decided by:** Matt
-**Supersedes:** ADR 0005 (Filename conventions) — pending acceptance
+**Status:** Accepted · **Date:** 2026-06-10 (Accepted by Emily 2026-06-23) · **Decided by:** Matt, Emily
+**Supersedes:** ADR 0005 (Filename conventions)
 
 ## Context
 
@@ -96,19 +96,20 @@ anything yet — no production cost to cutover.
 - `inventory/stops-2026-06-04.md` already uses stop slugs in its tables,
   so it's consistent with this ADR without revision.
 
-## Status: Proposed
+## Acceptance (2026-06-23)
 
-This ADR sits at **Proposed** until Emily's side signs off. Specifically
-seeking confirmation on:
+Emily confirmed on PR #2: slug-based filenames accepted, **hyphens
+required** (not underscores — her app's loader matches filename strings
+exactly; underscores would silently fail to load). Atomic cutover —
+tracker renames, she re-points `imageRefs` against the renamed set in
+one change. After cutover she'll eyeball all 22 galleries to spot any
+mismatches (the app shows a placeholder rather than erroring on a missing
+name, so the check is visual).
 
-1. Slug-based filenames vs an alternative (numbered-against-gallery-with-explicit-clarification, or some other scheme)
-2. Atomic cutover (option 1) vs transitional aliases (option 2)
-3. Any Swift-side constraints on filename length / character set we should
-   know about (we believe lowercase + underscore + digit is safe everywhere
-   on iOS file systems)
-
-Once Emily accepts (or proposes a counter), this ADR moves to **Accepted**
-and ADR 0005's status updates to **Superseded**.
+Hyphenated slug convention is now canonical. The tracker-side groupId
+column will be migrated from underscored slugs (`hospital_santa_creu`) to
+hyphenated (`hospital-santa-creu`) via the existing cascade-rename
+tooling. ADR 0005 moves to Superseded by this ADR.
 
 ## References
 

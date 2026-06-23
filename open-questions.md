@@ -63,28 +63,29 @@ non-blocking pieces of 3 and 4. Listed here for visibility.
 
 ---
 
-## Awaiting Emily's sign-off (highest priority)
+## Active threads
 
-### ADR-0011 — slug-based filename pattern
-**Status:** Proposed by Matt 2026-06-10 — awaiting Emily.
+### Image normalization (ADR-0004) — Emily wants to drop format conversion; tracker pushing back
+**Status:** Open · raised by Emily 2026-06-23, tracker reply queued.
 
-Filename pattern proposed: `<stop_id>-hero-NN.jpg` /
-`<stop_id>-appendix-NN.jpg` (slug-based, no numeric stop position embedded
-in the filename). Resolves the gallery-vs-tour numbering ambiguity Emily
-flagged.
+Emily's ask: keep each file's original extension (`.jpg` / `.jpeg` / `.png` /
+`.gif`) — no recompression, no format unification, just rename. Her loader
+handles mixed formats fine; she argues against re-encoding risk on PNG/GIF.
 
-See ADR-0011 for full reasoning + open sub-questions:
+Tracker reply (queued for PR #2): push back. Uniform JPEG / sRGB / q85 /
+1600px max / never upscale is standard one-time pipeline work, makes the
+validator simpler, makes bundle size predictable, and removes per-format
+runtime variance. Resolved-back to ADR-0004 unless she has a specific
+reason against. Will ask.
 
-1. Slug-based filenames vs an alternative (numbered-against-gallery with
-   explicit clarification, or some other scheme)?
-2. Atomic cutover (regenerate her loader's imageRefs in one change) vs
-   transitional `filename-aliases.json` mapping (one bundle of dual naming
-   then drop)?
-3. Any Swift-side constraints on filename length / character set we should
-   know about?
+### `la-pedrera` slug rename — reasoning?
+**Status:** Open · raised by Emily 2026-06-22, tracker asking for reasoning.
 
-When Emily accepts: ADR-0011 moves to **Accepted**; ADR-0005 status updates
-to **Superseded**; manifest + bundle schemas drop the "Proposed pending" notes.
+Emily pushed (no PR) `casa-mila` → `la-pedrera` and `monument-verdaguer` →
+`verdaguer-monument` on the `app-data/coordinate-seed` branch. The
+verdaguer reorder is fine (word-order swap). `la-pedrera` is more
+contentious — historically a pejorative nickname ("the quarry") used by
+contemporary critics; Casa Milà is the formal name. Asking why.
 
 ---
 
@@ -131,6 +132,11 @@ relationship some other way.
 (Move questions here when answered + actioned. Include date and the resolving
 ADR if one exists.)
 
+- **2026-06-23** — ADR-0011 accepted (slug-based, hyphenated, atomic cutover).
+  ADR-0005 superseded.
+- **2026-06-23** — `bcn_arrival` (Stop 3) reclassified from walking → listening
+  (stand on La Rambla). Reus (Stop 2) confirmed walking. Inventory updated.
+- **2026-06-23** — Coordinate seed merged via PR #2.
 - **2026-06-10** — Stop-structure migration timing: deferred to post-launch.
   ADR-0001 amended by ADR-0009. App keeps stop ownership through launch.
 - **2026-06-10** — `arrival_radius_meters` permanently app-owned. Dropped

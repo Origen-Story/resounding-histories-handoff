@@ -5,6 +5,27 @@ Most recent at the top.
 
 ---
 
+## 2026-06-23 — ADR-0011 accepted, ADR-0005 superseded; reus/bcn_arrival reclassified
+
+Emily signed off on ADR-0011 (slug-based, hyphenated filenames, atomic
+cutover) on PR #2. Status flipped on both ADRs to reflect.
+
+Inventory revised: **bcn_arrival** moves from walking → listening (Stop 3
+is a stationary "stand on La Rambla" stop). Reus stays walking. New totals:
+19 listening + 3 walking + 1 meta. See `inventory/stops-2026-06-04.md`
+Revisions section.
+
+Image normalization (ADR-0004) — Emily proposed dropping format conversion
+to keep original extensions. **Pushing back** — uniform JPEG/sRGB/q85/1600px
+is standard one-time work and reduces validator surface, runtime variance,
+and bundle size. Will sit with her on this; reply queued for PR #2.
+
+Slug rename not yet executed — pending Emily's reasoning on a couple of
+proposed slug name choices (`la-pedrera` vs `casa-mila`, etc.) before we
+finalize the canonical mapping.
+
+Still no tracker code changes for the contract-affecting work.
+
 ## 2026-06-14 — Bibliography as unified source registry (tracker-internal, complete)
 
 Built the bibliography table + UI, refactored `scene_sources` to be a thin

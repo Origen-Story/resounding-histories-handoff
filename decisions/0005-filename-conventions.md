@@ -1,6 +1,6 @@
 # ADR 0005 — Filename conventions
 
-**Status:** Pending supersession by ADR 0011 (slug-based pattern; awaiting Emily's sign-off)
+**Status:** Superseded by ADR 0011 (slug-based pattern) — accepted 2026-06-23
 **Date:** 2026-06-04 · **Decided by:** Emily
 
 ## Decision
