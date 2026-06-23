@@ -16,7 +16,7 @@
   ],
   "stops": [
     { "slug": "hospital-santa-creu",       "lat": 41.380795, "lng": 2.170077, "status": "seed-centroid" },
-    { "slug": "reus",                       "lat": 41.380795, "lng": 2.170077, "status": "pending-courtyard-refinement" },
+    { "slug": "bcn-arrival",                "lat": 41.381196, "lng": 2.173272, "status": "site-standing-point" },
     { "slug": "santa-maria-del-pi",         "lat": 41.382241, "lng": 2.173919, "status": "seed-centroid" },
     { "slug": "sant-felip-neri",            "lat": 41.383452, "lng": 2.175054, "status": "seed-centroid" },
     { "slug": "catedral-barcelona",         "lat": 41.383962, "lng": 2.176199, "status": "seed-centroid" },
