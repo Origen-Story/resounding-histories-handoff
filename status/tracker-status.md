@@ -5,6 +5,35 @@ Most recent at the top.
 
 ---
 
+## 2026-07-01 — park_guell moves to Stop 16 as a listening stop; casa_calvet + cafe_torino shift up
+
+Narrative rework: Park Güell moves out of its walking slot (Stop 14) and
+becomes a listening stop at the foot of the **Joan Güell monument** (Gran Via
+× Rambla de Catalunya, across the roundabout from where Cafè Torino stood).
+Editorial anchors on the 1888 Universal Exhibition monument inauguration
+with time-jumps to the Park Güell dream (1900-1914). Slug stays `park_guell`.
+
+Knock-on renumbering:
+
+| Position | groupId | Display name | Type |
+|---|---|---|---|
+| 14 | `casa_calvet` | Casa Calvet (1900) | listening (was Stop 15) |
+| 15 | `cafe_torino` | Cafe Torino (1898-1902) | listening (was Stop 16; year expanded to cover Cercle de Sant Lluc scene) |
+| 16 | `park_guell` | Joan Güell Monument / Park Güell (1888-1914) | listening ← was walking, was Stop 14 |
+
+New totals: **20 listening + 2 walking + 1 meta** (was 19/3/1). Stops 17–22
+unchanged. `inventory/stops-2026-06-04.md` updated.
+
+**Emily — needed from your side:** a coordinate for `park_guell` at the Joan
+Güell monument, Gran Via × Rambla de Catalunya. The existing coordinate seed
+doesn't have one (park_guell was walking previously). Everything else on this
+change is tracker-internal.
+
+FDX re-bootstrap for the new Stop 16 scene structure (5 scenes now: 1888
+monument inauguration → Muntanya Pelada time-jump → 1906 Catalan Language
+Congress garden party → 1914 WWI abandonment → 1916 unity festival) is
+deferred a few days until the outline draft settles. No contract change.
+
 ## 2026-06-23 — ADR-0011 accepted, ADR-0005 superseded; reus/bcn_arrival reclassified
 
 Emily signed off on ADR-0011 (slug-based, hyphenated filenames, atomic
